@@ -1,0 +1,30 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title text-center>Adicionar Tarefa</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+
+<ion-content padding>
+
+  <ion-item>
+    <ion-label color="primary" floating>O que deve ser feito?</ion-label>
+    <ion-input></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Data</ion-label>
+    <ion-datetime displayFormat="DD/MMMM/YYYY" [(ngModel)]="myDate"></ion-datetime>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Horário</ion-label>
+    <ion-datetime displayFormat="HH:mm" [(ngModel)]="myDate"></ion-datetime>
+  </ion-item>
+
+  <button ion-button full (click)="salvar()">Salvar</button>
+
+</ion-content>

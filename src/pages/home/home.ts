@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { LocalNotifications } from '@ionic-native/local-notifications';
-
 
 @IonicPage()
 @Component({
@@ -13,7 +12,7 @@ export class HomePage {
   items = ['--', '00', '01', '03', '04'];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private notifServic: LocalNotifications) { }
+    private notifServic: LocalNotifications, private modalCtrl: ModalController) { }
 
 
   itemSelected(item) {
@@ -23,6 +22,11 @@ export class HomePage {
 
   add() {
     console.log('botao add clicado');
+    let addModal = this.modalCtrl.create('AddPage');
+    addModal.onDidDismiss(data => {
+      console.log(data);
+    });
+    addModal.present();
   }
 
 

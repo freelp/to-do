@@ -8,9 +8,16 @@
 
 
 <ion-content padding>
+  <!-- <button ion-button full (click)="notify()">Notificar</button> -->
 
-  
+  <ion-list>
+    <button ion-item *ngFor="let item of items" (click)="itemSelected(item)">
+      {{ item }}
+    </button>
+  </ion-list>
 
-<button ion-button full (click)="notify()">Notificar</button>
+  <ion-fab bottom right>
+    <button ion-fab (click)="add()"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
 
 </ion-content>

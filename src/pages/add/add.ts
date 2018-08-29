@@ -11,17 +11,11 @@ export class AddPage {
 
   formulario: FormGroup;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder,
-    public viewCtrl: ViewController) {
-    this.criarFormulario();
-  }
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    private formBuilder: FormBuilder, public viewCtrl: ViewController) { }
 
   criarFormulario() {
-    this.formulario = this.formBuilder.group({
-      text: [],
-      data: [],
-      hora: [],
-    });
+    this.formulario = this.formBuilder.group({ text: [], data: [], hora: [], });
   }
 
   salvar() {

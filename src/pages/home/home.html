@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>home</ion-title>
+    <ion-title text-center>Lista de Tarefas</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -12,11 +12,11 @@
 
   <ion-list>
     <button ion-item *ngFor="let item of items" (click)="itemSelected(item)">
-      {{ item }}
+      {{ item.text }}
     </button>
   </ion-list>
 
-  <ion-fab bottom right>
+  <ion-fab bottom right padding>
     <button ion-fab (click)="add()"><ion-icon name="add"></ion-icon></button>
   </ion-fab>
 

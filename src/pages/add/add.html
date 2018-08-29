@@ -10,20 +10,26 @@
 
 <ion-content padding>
 
-  <ion-item>
-    <ion-label color="primary" floating>O que deve ser feito?</ion-label>
-    <ion-input></ion-input>
-  </ion-item>
+  <form [formGroup]="formulario">
 
-  <ion-item>
-    <ion-label>Data</ion-label>
-    <ion-datetime displayFormat="DD/MMMM/YYYY" [(ngModel)]="myDate"></ion-datetime>
-  </ion-item>
 
-  <ion-item>
-    <ion-label>Horário</ion-label>
-    <ion-datetime displayFormat="HH:mm" [(ngModel)]="myDate"></ion-datetime>
-  </ion-item>
+    <ion-item>
+      <ion-label color="primary" floating>O que deve ser feito?</ion-label>
+      <ion-input formControlName="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Data</ion-label>
+      <ion-datetime displayFormat="DD/MMMM/YYYY" formControlName="data"></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Horário</ion-label>
+      <ion-datetime displayFormat="HH:mm" formControlName="hora"></ion-datetime>
+    </ion-item>
+
+  </form>
+
 
   <button ion-button full (click)="salvar()">Salvar</button>
 

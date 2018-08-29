@@ -9,35 +9,39 @@ import { LocalNotifications } from '@ionic-native/local-notifications';
 })
 export class HomePage {
 
-  items = ['--', '00', '01', '03', '04'];
+  private items = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private notifServic: LocalNotifications, private modalCtrl: ModalController) { }
+    private notifServic: LocalNotifications, public modalCtrl: ModalController) { }
 
 
   itemSelected(item) {
-    console.log('o item: ' + item + ' foi clicado');
+    console.log('o item: ' + item.text + ', foi clicado');
   }
 
 
   add() {
     console.log('botao add clicado');
+
     let addModal = this.modalCtrl.create('AddPage');
-    addModal.onDidDismiss(data => {
-      console.log(data);
-    });
+    addModal.onDidDismiss(data => { this.salvarTarefa(data) });
     addModal.present();
   }
 
-
-  notify() {
-    this.notifServic.schedule({
-      id: 1,
-      title: 'Ola Mundo',
-      text: 'Porra Consegui',
-      trigger: { at: new Date(new Date().getTime() + 2000) },
-      data: { mydata: 'Ocular a porra toda' }
-    })
+  private salvarTarefa(data: any) {
+    console.log(data);
+    this.items.push(data);
   }
+
+
+  // notify() {
+  //   this.notifServic.schedule({
+  //     id: 1,
+  //     title: 'Ola Mundo',
+  //     text: 'Porra Consegui',
+  //     trigger: { at: new Date(new Date().getTime() + 2000) },
+  //     data: { mydata: 'Ocular a porra toda' }
+  //   })
+  // }
 
 }

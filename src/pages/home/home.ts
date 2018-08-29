@@ -1,12 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams} from 'ionic-angular';
+import { LocalNotifications } from '@ionic-native/local-notifications';
 
-/**
- * Generated class for the HomePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -15,11 +10,18 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private notifServic:LocalNotifications ) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad HomePage');
+
+  notify() {
+      this.notifServic.schedule({
+        id: 1,
+        title: 'Ola Mundo',
+        text: 'Porra Consegui',
+        trigger: {at: new Date(new Date().getTime() + 2000)},
+        data: {mydata: 'Ocular a porra toda'}
+      })
   }
 
 }

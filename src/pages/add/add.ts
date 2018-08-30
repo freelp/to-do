@@ -14,6 +14,10 @@ export class AddPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private formBuilder: FormBuilder, public viewCtrl: ViewController) { }
 
+  ngOnInit() {
+    this.criarFormulario();
+  }
+
   criarFormulario() {
     this.formulario = this.formBuilder.group({ text: [], data: [], hora: [], });
   }

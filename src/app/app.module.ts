@@ -9,6 +9,18 @@ import { HomePage } from '../pages/home/home';
 
 import { LocalNotifications } from '@ionic-native/local-notifications';
 
+import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyC2Hpmm9V6LZw2xlmhCJUzLK0fEJkwCc4U",
+  authDomain: "to-do-pwa-3ffd9.firebaseapp.com",
+  databaseURL: "https://to-do-pwa-3ffd9.firebaseio.com",
+  projectId: "to-do-pwa-3ffd9",
+  storageBucket: "to-do-pwa-3ffd9.appspot.com",
+  messagingSenderId: "518679561649"
+};
+
 @NgModule({
   declarations: [
     MyApp,
@@ -17,6 +29,8 @@ import { LocalNotifications } from '@ionic-native/local-notifications';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFirestoreModule.enablePersistence()
   ],
   bootstrap: [IonicApp],
   entryComponents: [

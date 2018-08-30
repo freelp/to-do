@@ -11,7 +11,7 @@
   <!-- <button ion-button full (click)="notify()">Notificar</button> -->
 
   <ion-list>
-    <button ion-item *ngFor="let nota of listItens | async" (click)="itemSelected(item)">
+    <button ion-item *ngFor="let nota of notasList | async" (click)="itemSelected(nota)">
       {{ nota.text }}
     </button>
   </ion-list>

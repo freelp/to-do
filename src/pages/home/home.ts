@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, ModalController } from 'ionic-angular';
-import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { AngularFirestore} from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
+import { map } from 'rxjs/operators';
 
 @IonicPage()
 @Component({
@@ -10,21 +11,27 @@ import { Observable } from 'rxjs/Observable';
 })
 export class HomePage {
 
-  private itensCollection: AngularFirestoreCollection<any>;
-  private listItens: Observable<any>;
+  private notasList: Observable<any>;
 
-  constructor(
-    private db: AngularFirestore,
-    private modalCtrl: ModalController) {
-    this.itensCollection = this.db.collection("notas");
-    this.listItens = this.itensCollection.valueChanges();
+  constructor(private db: AngularFirestore, private modalCtrl: ModalController) { }
+
+  ngOnInit() {
+    this.notasList = this.db.collection('notas').snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        const data = a.payload.doc.data();
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      }))
+    );
   }
-
 
   itemSelected(item) {
-    console.log('o item: ' + item.text + ', foi clicado');
+    console.log('o item: ' + item.text + ', foi Deletado');
   }
 
+  getListItens() {
+    return this.notasList;
+  }
 
   add() {
     let addModal = this.modalCtrl.create('AddPage');
@@ -33,9 +40,15 @@ export class HomePage {
   }
 
   private salvarTarefa(data: any) {
-    this.itensCollection.add(data)
-      .then(result => { console.log(result.id) })
-      .catch(err => { console.log(err) })
+    if (data != null && data.text != null) {
+      this.db.collection('notas').add(data)
+        .then(result => { console.log(result.id) })
+        .catch(err => { console.log(err) })
+    }
+  }
+
+  private delete(note) {
+    this.db.collection('notas').doc(note.id).delete();
   }
 
 

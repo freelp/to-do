@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
-import { LocalNotifications } from '@ionic-native/local-notifications';
+import { IonicPage, ModalController } from 'ionic-angular';
+import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { Observable } from 'rxjs/Observable';
 
 @IonicPage()
 @Component({
@@ -9,10 +10,15 @@ import { LocalNotifications } from '@ionic-native/local-notifications';
 })
 export class HomePage {
 
-  private items = [];
+  private itensCollection: AngularFirestoreCollection<any>;
+  private listItens: Observable<any>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-    private notifServic: LocalNotifications, public modalCtrl: ModalController) { }
+  constructor(
+    private db: AngularFirestore,
+    private modalCtrl: ModalController) {
+    this.itensCollection = this.db.collection("notas");
+    this.listItens = this.itensCollection.valueChanges();
+  }
 
 
   itemSelected(item) {
@@ -21,16 +27,15 @@ export class HomePage {
 
 
   add() {
-    console.log('botao add clicado');
-
     let addModal = this.modalCtrl.create('AddPage');
     addModal.onDidDismiss(data => { this.salvarTarefa(data) });
     addModal.present();
   }
 
   private salvarTarefa(data: any) {
-    console.log(data);
-    this.items.push(data);
+    this.itensCollection.add(data)
+      .then(result => { console.log(result.id) })
+      .catch(err => { console.log(err) })
   }
 
 
